@@ -99,3 +99,29 @@ test.describe('extracting values', () => {
         expect(await email.getAttribute('placeholder')).toEqual('Email')
     })
 })
+
+test.describe('assertions', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.getByText('Forms').click()
+        await page.getByText('Form layouts').click()
+    })
+    test('generic assertions', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Basic form' })
+        const button = card.getByRole('button')
+        const text = await button.textContent()
+        expect(text).toEqual('Submit') // string assertion
+    })
+    test('locator assertions', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Basic form' })
+        const button = card.getByRole('button')
+        await expect(button).toHaveText('Submit') // Locator assertion
+    })
+    test('soft', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Basic form' })
+        const button = card.getByRole('button')
+        // won't block if failed
+        await expect.soft(button).toHaveText('Sign In')
+        await expect(button).toHaveText('Submit')
+        console.log('OK')
+    })
+})
