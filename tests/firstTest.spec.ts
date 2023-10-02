@@ -26,14 +26,34 @@ test.describe('locators', () => {
         await page.locator('input[placeholder="Email"].shape-rectangle').first().highlight() // combination
         await page.locator(':text-is("Email")').first().highlight() // css
     })
-    test.only('user facing locators', async ({ page }) => {
+    test('user facing locators', async ({ page }) => {
         await page.getByRole('textbox').first().highlight()
         await page.getByRole('button').first().highlight()
         await page.getByLabel('password').first().highlight()
         await page.getByPlaceholder('email').first().highlight()
         await page.getByText('name').first().highlight()
-        await page.getByTitle('IoT Dashboard').first().highlight()
+        await page.getByTitle('IoT Dasshboard').first().highlight()
         await page.getByTestId('test-name').first().highlight()
     })
+    test('child elements', async ({ page }) => {
+        await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 1")').first().highlight()
+        // equivalent, just shorter
+        await page.locator('nb-card nb-radio :text-is("Option 2")').first().highlight()
+        // mixing locator types
+        await page.locator('nb-card').getByRole('button', { name: 'Sign In' }).first().highlight()
+    })
+    test.only('parent elements', async ({ page }) => {
+        const card = page.locator('nb-card')
+        const child = page.getByPlaceholder('Message')
+        const parent = card.filter({ has: child })
 
+        await parent.highlight()
+
+        await card
+            .filter({ hasText: 'Form without labels' })
+            .getByRole('textbox', { name: 'Message' })
+            .highlight()
+
+        await child.locator('../../../..').highlight()
+    })
 })
