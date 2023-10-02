@@ -43,13 +43,13 @@ test.describe('locators', () => {
         await page.locator('nb-card').getByRole('button', { name: 'Sign In' }).first().focus()
     })
     test('parent elements', async ({ page }) => {
-        const card = page.locator('nb-card')
+        const parent = page.locator('nb-card')
         const child = page.getByPlaceholder('Message')
-        const parent = card.filter({ has: child })
+        const card = parent.filter({ has: child })
 
-        await parent.focus()
+        await card.focus()
 
-        await card
+        await parent
             .filter({ hasText: 'Form without labels' })
             .getByRole('textbox', { name: 'Message' })
             .focus()
@@ -67,5 +67,35 @@ test.describe('locators', () => {
         await card.getByRole('checkbox').check({ force: true })
         await card.getByRole('button').focus()
         await expect(card.getByRole('button')).toBeFocused()
+    })
+})
+
+test.describe('extracting values', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.getByText('Forms').click()
+        await page.getByText('Form layouts').click()
+    })
+
+    test('get single text value', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Basic form' })
+        const button = card.locator('button')
+        expect(await button.textContent()).toEqual('Submit')
+    })
+    test('get all text values', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Using the Grid' })
+        const options = await card.locator('nb-radio').allTextContents()
+        expect(options).not.toContain('Option 3')
+    })
+    test('input values', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Basic form' })
+        const email = card.getByRole('textbox', { name: 'Email' })
+        await email.fill('c@t.lord')
+        expect(await email.inputValue()).toEqual('c@t.lord')
+    })
+    test('attribute values', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Basic form' })
+        const email = card.getByRole('textbox', { name: 'Email' })
+
+        expect(await email.getAttribute('placeholder')).toEqual('Email')
     })
 })
