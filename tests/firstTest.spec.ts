@@ -122,6 +122,6 @@ test.describe('assertions', () => {
         // won't block if failed
         await expect.soft(button).toHaveText('Sign In')
         await expect(button).toHaveText('Submit')
-        console.log('OK')
+        console.log('Test completed with a soft \'expect\' error')
     })
 })
