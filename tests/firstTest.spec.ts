@@ -13,18 +13,27 @@ test.describe('first suite', () => {
         await page.getByText('Datepicker').click()
     })
 })
-test.describe('locator syntax rules', () => {
+test.describe('locators', () => {
     test.beforeEach(async ({ page }) => {
         await page.getByText('Forms').click()
         await page.getByText('Form layouts').click()
     })
-    test('locator syntax rules', async ({ page }) => {
-        await page.locator('input').first().focus() // tag
-        await page.locator('.shape-rectangle').first().focus() // class
-        await page.locator('#inputEmail').first().focus() // id
-        await page.locator('[placeholder="Email"]').first().focus() // attribute
-        await page.locator('input[placeholder="Email"].shape-rectangle').first().focus() // combination
-        await page.locator(':text-is("Email")').first().focus() // css
+    test('base locators syntax rules', async ({ page }) => {
+        await page.locator('input').first().highlight() // tag
+        await page.locator('.shape-rectangle').first().highlight() // class
+        await page.locator('#inputEmail').first().highlight() // id
+        await page.locator('[placeholder="Email"]').first().highlight() // attribute
+        await page.locator('input[placeholder="Email"].shape-rectangle').first().highlight() // combination
+        await page.locator(':text-is("Email")').first().highlight() // css
+    })
+    test.only('user facing locators', async ({ page }) => {
+        await page.getByRole('textbox').first().highlight()
+        await page.getByRole('button').first().highlight()
+        await page.getByLabel('password').first().highlight()
+        await page.getByPlaceholder('email').first().highlight()
+        await page.getByText('name').first().highlight()
+        await page.getByTitle('IoT Dashboard').first().highlight()
+        await page.getByTestId('test-name').first().highlight()
     })
 
 })
