@@ -66,18 +66,35 @@ test.describe('UI components', () => {
             await expect(header).toHaveCSS('background-color', 'rgb(34, 43, 69)')
         })
     })
+    test.describe('tooltip', () => {
+        test.beforeEach(async ({ page }) => {
+            await page.getByText('Modal & Overlays').click()
+            await page.getByText('Tooltip').click()
+        })
+        test('tooltips', async ({ page }) => {
+            const card = page.locator('nb-card').filter({ hasText: 'Tooltip Placements' })
+            var button = card.getByRole('button', { name: 'Top' })
+            await button.hover()
+            const text = await page.locator('nb-tooltip').textContent()
+            expect(text).toEqual('This is a tooltip')
+        })
+    })
+    test.describe('smart table', () => {
+        test.beforeEach(async ({ page }) => {
+            await page.getByText('Tables & Data').click()
+            await page.getByText('Smart Table').click()
+        })
+        test('browser dialogs', async ({ page }) => {
+            const card = page.locator('nb-card').filter({ hasText: 'Smart Table' })
+            const row = card.locator('tbody tr').first()
+            await expect(row).toContainText('@mdo')
+            page.on('dialog', dialog => {
+                expect(dialog.message()).toEqual('Are you sure you want to delete?')
+                dialog.accept()
+            })
+            await row.locator('.nb-trash').click()
+            await expect(row).not.toContainText('@mdo')
+        })
+    })
 
-})
-test.describe('tooltip', () => {
-    test.beforeEach(async ({ page }) => {
-        await page.getByText('Modal & Overlays').click()
-        await page.getByText('Tooltip').click()
-    })
-    test('tootltips', async ({ page }) => {
-        const card = page.locator('nb-card').filter({ hasText: 'Tooltip Placements' })
-        var button = card.getByRole('button', { name: 'Top' })
-        await button.hover()
-        const text = await page.locator('nb-tooltip').textContent()
-        expect(text).toEqual('This is a tooltip')
-    })
 })
