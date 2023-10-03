@@ -68,12 +68,12 @@ test.describe('UI components', () => {
     })
 
 })
-test.describe('tooltips', () => {
+test.describe('tooltip', () => {
     test.beforeEach(async ({ page }) => {
         await page.getByText('Modal & Overlays').click()
         await page.getByText('Tooltip').click()
     })
-    test('tootltip1', async ({ page }) => {
+    test('tootltips', async ({ page }) => {
         const card = page.locator('nb-card').filter({ hasText: 'Tooltip Placements' })
         var button = card.getByRole('button', { name: 'Top' })
         await button.hover()
