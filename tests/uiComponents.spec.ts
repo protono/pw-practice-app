@@ -27,13 +27,30 @@ test.describe('UI components', () => {
             const option2 = card.getByRole('radio', { name: 'Option 2' })
             await option1.check({ force: true })
             await option2.check({ force: true })
+
             var status = await option2.isChecked()
             expect(status).toBeTruthy()
             await expect(option2).toBeChecked()
+
             status = await option1.isChecked()
             expect(status).toBeFalsy()
             await expect(option1).not.toBeChecked()
         })
-
+    })
+    test.describe('toastr', () => {
+        test.beforeEach(async ({ page }) => {
+            await page.getByText('Modal & Overlays').click()
+            await page.getByText('Toastr').click()
+        })
+        test('checkboxes', async ({ page }) => {
+            const card = page.locator('nb-card').filter({ hasText: 'Toaster configuration' })
+            var cb = card.getByRole('checkbox', { name: 'Hide on click' })
+            await cb.uncheck({ force: true })
+            const cb_all = card.getByRole('checkbox')
+            for (const cb of await cb_all.all()) {
+                await cb.uncheck({ force: true })
+                expect(await cb.isChecked()).not.toBeTruthy()
+            }
+        })
     })
 })
