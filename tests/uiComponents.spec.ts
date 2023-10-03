@@ -54,10 +54,6 @@ test.describe('UI components', () => {
         })
     })
     test.describe('header', () => {
-        test.beforeEach(async ({ page }) => {
-            // await page.getByText('Modal & Overlays').click()
-            // await page.getByText('Toastr').click()
-        })
         test('dropdown', async ({ page }) => {
             const header = page.locator('nb-layout-header')
             const dropdown = header.locator('nb-select')
@@ -71,4 +67,17 @@ test.describe('UI components', () => {
         })
     })
 
+})
+test.describe('tooltips', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.getByText('Modal & Overlays').click()
+        await page.getByText('Tooltip').click()
+    })
+    test('tootltip1', async ({ page }) => {
+        const card = page.locator('nb-card').filter({ hasText: 'Tooltip Placements' })
+        var button = card.getByRole('button', { name: 'Top' })
+        await button.hover()
+        const text = await page.locator('nb-tooltip').textContent()
+        expect(text).toEqual('This is a tooltip')
+    })
 })
