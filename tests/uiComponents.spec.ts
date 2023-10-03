@@ -53,4 +53,22 @@ test.describe('UI components', () => {
             }
         })
     })
+    test.describe('header', () => {
+        test.beforeEach(async ({ page }) => {
+            // await page.getByText('Modal & Overlays').click()
+            // await page.getByText('Toastr').click()
+        })
+        test('dropdown', async ({ page }) => {
+            const header = page.locator('nb-layout-header')
+            const dropdown = header.locator('nb-select')
+            await dropdown.click()
+            const list = page.locator('nb-option-list')
+            const listitem_all = list.locator('nb-option')
+            await expect(listitem_all).toHaveText(['Light', 'Dark', 'Cosmic', 'Corporate']) //  neat!
+            const text = 'Dark'
+            await listitem_all.filter({ hasText: text }).click()
+            await expect(header).toHaveCSS('background-color', 'rgb(34, 43, 69)')
+        })
+    })
+
 })
