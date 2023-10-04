@@ -8,6 +8,10 @@ export class Sidebar {
     readonly smartTable: Locator
     readonly datePicker: Locator
     readonly iotDashboard: Locator
+    /**
+     * 
+     * @param page 
+     */
     constructor(page: Page) {
         this.page = page
         this.formLayouts = this.page.getByText('Form Layouts')
@@ -41,6 +45,10 @@ export class Sidebar {
         await this.iotDashboard.click()
 
     }
+    /**
+     * 
+     * @param title 
+     */
     private async expandTitle(title: string) {
         const target = this.page.getByTitle(title)
         const state = await target.getAttribute('aria-expanded')
