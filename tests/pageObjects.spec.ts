@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { Sidebar } from './page-objects/sidebar'
-import { FormLayouts } from './page-objects/modal'
+import { Datepicker, FormLayouts } from './page-objects/modal'
 test.beforeEach(async ({ page }) => {
     await page.goto('')
 })
@@ -18,5 +18,11 @@ test.describe('content', () => {
         await formLayouts.usingTheGrid_signIn('test@test2.com', 'secret', 'Option 1')
         await formLayouts.inlineForm_submit('John Doe', 'test@test.com', true)
     })
-
+    test('datepicker', async ({ page }) => {
+        const sidebar = new Sidebar(page)
+        await sidebar.openDatepicker()
+        const datePicker = new Datepicker(page)
+        await datePicker.commonDatepicker_daysFromNow(3)
+        await datePicker.datepickerWithRange_daysFromNow(3, 4)
+    })
 })

@@ -37,3 +37,31 @@ export class FormLayouts extends Modal {
         await card.getByRole('button').click()
     }
 }
+
+export class Datepicker extends Modal {
+    constructor(page: Page) {
+        super(page)
+    }
+    async commonDatepicker_daysFromNow(numDays: number) {
+        const card = this.page.locator('nb-card').filter({ hasText: 'Common Datepicker' })
+        await card.getByPlaceholder('Form Picker').click()
+        await this.pickDate(numDays)
+    }
+    async datepickerWithRange_daysFromNow(numDaysFrom: number, numDaysTo: number) {
+        const card = this.page.locator('nb-card').filter({ hasText: 'Datepicker With Range' })
+        await card.getByPlaceholder('Range Picker').click()
+        await this.pickDate(numDaysFrom)
+        await this.pickDate(numDaysTo)
+    }
+    private incrDate(numDays: number): Date {
+        let date = new Date()
+        date.setDate(date.getDate() + numDays)
+        return date
+    }
+    private async pickDate(numDays: number) {
+        const date = this.incrDate(numDays)
+        const picker = this.page.locator('nb-calendar-day-picker')
+        const target = picker.locator('.day-cell.ng-star-inserted').getByText(date.getDate().toString(), { exact: true })
+        await target.click()
+    }
+}
