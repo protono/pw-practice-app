@@ -135,4 +135,36 @@ test.describe('UI components', () => {
             }
         })
     })
+    test.describe('datepicker', () => {
+        test.beforeEach(async ({ page }) => {
+            await page.getByText('Forms').click()
+            await page.getByText('Datepicker').click()
+        })
+        test('common dp', async ({ page }) => {
+            const card = page.locator('nb-card').filter({ hasText: 'Common Datepicker' })
+            const button = card.getByPlaceholder('Form Picker')
+            await button.click()
+
+            let date = new Date()
+            date.setDate(date.getDate() + 1000)
+            let newDate = date.getDate().toString()
+            let newMonthShort = date.toLocaleString('en-US', { month: 'short' })
+            let newMonthLong = date.toLocaleString('en-US', { month: 'long' })
+            let newYear = date.getFullYear()
+            const targetMonth = `${newMonthLong} ${newYear}`
+            const expectedDate = `${newMonthShort} ${newDate}, ${newYear}`
+
+            const cal = page.locator('nb-calendar')
+            const months = cal.locator('nb-calendar-view-mode')
+            let curMonth = await months.textContent()
+            const nextMonth = cal.locator('nb-calendar-pageable-navigation').getByRole('button').last()
+            while (!curMonth.includes(targetMonth)) {
+                await nextMonth.click()
+                curMonth = await months.textContent()
+            }
+            const cell = cal.locator('[class="day-cell ng-star-inserted"]')
+            await cell.getByText(newDate, { exact: true }).click()
+            await expect(button).toHaveValue(expectedDate)
+        })
+    })
 })
