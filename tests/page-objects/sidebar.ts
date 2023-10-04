@@ -1,7 +1,8 @@
 import { Locator, Page } from '@playwright/test'
+import { Helper } from './helper'
 
-export class Sidebar {
-    readonly page: Page
+export class Sidebar extends Helper {
+    // readonly page: Page
     readonly formLayouts: Locator
     readonly toastr: Locator
     readonly tooltip: Locator
@@ -13,7 +14,8 @@ export class Sidebar {
      * @param page 
      */
     constructor(page: Page) {
-        this.page = page
+        // this.page = page
+        super(page)
         this.formLayouts = this.page.getByText('Form Layouts')
         this.toastr = this.page.getByText('Toastr')
         this.tooltip = this.page.getByText('Tooltip')

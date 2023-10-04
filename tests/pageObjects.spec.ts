@@ -1,5 +1,4 @@
-import { expect, test } from '@playwright/test'
-import { Datepicker, FormLayouts } from './page-objects/modal'
+import { test } from '@playwright/test'
 import { PageManager } from './page-objects/pageManager'
 test.beforeEach(async ({ page }) => {
     await page.goto('')
@@ -20,7 +19,7 @@ test.describe('content', () => {
     test('datepicker', async ({ page }) => {
         const pm = new PageManager(page)
         await pm.goto().datepickerPage()
-        await pm.datepicker.commonDatepicker_daysFromNow(3)
-        await pm.datepicker.datepickerWithRange_daysFromNow(3, 4)
+        await pm.datepicker.common_daysFromNow(3)
+        await pm.datepicker.withRange_daysFromNow(3, 4)
     })
 })

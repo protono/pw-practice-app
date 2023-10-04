@@ -1,13 +1,9 @@
 import { Page } from '@playwright/test'
-class Modal {
-    readonly page: Page
+import { Helper } from './helper'
+export class FormLayouts extends Helper {
+    // readonly page: Page
     constructor(page: Page) {
-        this.page = page
-    }
-
-}
-export class FormLayouts extends Modal {
-    constructor(page: Page) {
+        // this.page = page
         super(page)
     }
     /**
@@ -38,16 +34,18 @@ export class FormLayouts extends Modal {
     }
 }
 
-export class Datepicker extends Modal {
+export class Datepicker extends Helper {
+    // readonly page: Page
     constructor(page: Page) {
+        // this.page = page
         super(page)
     }
-    async commonDatepicker_daysFromNow(numDays: number) {
+    async common_daysFromNow(numDays: number) {
         const card = this.page.locator('nb-card').filter({ hasText: 'Common Datepicker' })
         await card.getByPlaceholder('Form Picker').click()
         await this.pickDate(numDays)
     }
-    async datepickerWithRange_daysFromNow(numDaysFrom: number, numDaysTo: number) {
+    async withRange_daysFromNow(numDaysFrom: number, numDaysTo: number) {
         const card = this.page.locator('nb-card').filter({ hasText: 'Datepicker With Range' })
         await card.getByPlaceholder('Range Picker').click()
         await this.pickDate(numDaysFrom)
