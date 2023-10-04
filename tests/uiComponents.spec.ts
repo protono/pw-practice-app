@@ -195,9 +195,10 @@ test.describe('UI components', () => {
             const cursor = page.mouse
             const box = await slider.boundingBox()
             // following two are equivalent
+            // 1
             await page.mouse.click(box.x, box.y + box.height / 2)
             await expect(slider).toContainText('16')
-            // and
+            // 2
             let cx = await button.evaluate(element => {
                 return +element.getAttribute('cx')
             })
