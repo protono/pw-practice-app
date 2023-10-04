@@ -21,27 +21,27 @@ export class Sidebar {
         this.datePicker = this.page.getByText('Datepicker')
         this.iotDashboard = this.page.getByText('IoT Dashboard')
     }
-    async openFormLayouts() {
+    async formLayoutsPage() {
         await this.expandTitle('Forms')
         await this.formLayouts.click()
     }
-    async openToastr() {
+    async toastrPage() {
         await this.expandTitle('Modal & Overlays')
         await this.toastr.click()
     }
-    async openTooltip() {
+    async tooltipPage() {
         await this.expandTitle('Modal & Overlays')
         await this.tooltip.click()
     }
-    async openSmartTable() {
+    async smartTablePage() {
         await this.expandTitle('Tables & Data')
         await this.smartTable.click()
     }
-    async openDatepicker() {
+    async datepickerPage() {
         await this.expandTitle('Forms')
         await this.datePicker.click()
     }
-    async openIoTDashboard() {
+    async iotDashboardPage() {
         await this.iotDashboard.click()
 
     }

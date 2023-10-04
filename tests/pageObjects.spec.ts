@@ -1,28 +1,26 @@
 import { expect, test } from '@playwright/test'
-import { Sidebar } from './page-objects/sidebar'
 import { Datepicker, FormLayouts } from './page-objects/modal'
+import { PageManager } from './page-objects/pageManager'
 test.beforeEach(async ({ page }) => {
     await page.goto('')
 })
 test.describe('content', () => {
     test('navigation ', async ({ page }) => {
-        const sidebar = new Sidebar(page)
-        await sidebar.openFormLayouts()
-        await sidebar.openToastr()
+        const pm = new PageManager(page)
+        await pm.goto().formLayoutsPage()
+        await pm.goto().toastrPage()
     })
     test('parametrized methods', async ({ page }) => {
-        const sidebar = new Sidebar(page)
-        await sidebar.openFormLayouts()
-        const formLayouts = new FormLayouts(page)
-        await formLayouts.usingTheGrid_signIn('test@test.com', 'secret', 'Option 2')
-        await formLayouts.usingTheGrid_signIn('test@test2.com', 'secret', 'Option 1')
-        await formLayouts.inlineForm_submit('John Doe', 'test@test.com', true)
+        const pm = new PageManager(page)
+        await pm.goto().formLayoutsPage()
+        await pm.formLayouts.usingTheGrid_signIn('test@test.com', 'secret', 'Option 2')
+        await pm.formLayouts.usingTheGrid_signIn('test@test2.com', 'secret', 'Option 1')
+        await pm.formLayouts.inlineForm_submit('John Doe', 'test@test.com', true)
     })
     test('datepicker', async ({ page }) => {
-        const sidebar = new Sidebar(page)
-        await sidebar.openDatepicker()
-        const datePicker = new Datepicker(page)
-        await datePicker.commonDatepicker_daysFromNow(3)
-        await datePicker.datepickerWithRange_daysFromNow(3, 4)
+        const pm = new PageManager(page)
+        await pm.goto().datepickerPage()
+        await pm.datepicker.commonDatepicker_daysFromNow(3)
+        await pm.datepicker.datepickerWithRange_daysFromNow(3, 4)
     })
 })
