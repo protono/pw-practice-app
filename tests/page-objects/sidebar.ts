@@ -1,45 +1,45 @@
-import { Page } from '@playwright/test'
+import { Locator, Page } from '@playwright/test'
 
 export class Sidebar {
     readonly page: Page
+    readonly formLayouts: Locator
+    readonly toastr: Locator
+    readonly tooltip: Locator
+    readonly smartTable: Locator
+    readonly datePicker: Locator
+    readonly iotDashboard: Locator
     constructor(page: Page) {
         this.page = page
+        this.formLayouts = this.page.getByText('Form Layouts')
+        this.toastr = this.page.getByText('Toastr')
+        this.tooltip = this.page.getByText('Tooltip')
+        this.smartTable = this.page.getByText('Smart Tables')
+        this.datePicker = this.page.getByText('Datepicker')
+        this.iotDashboard = this.page.getByText('IoT Dashboard')
     }
-    async open(contentName: string) {
-        switch (contentName) {
-            case 'Form Layouts': {
-                await this.expand('Forms')
-                await this.page.getByText('Form Layouts').click()
-                break
-            }
-            case 'Toastr': {
-                await this.expand('Modal & Overlays')
-                await this.page.getByText('Toastr').click()
-                break
-            }
-            case ('Header'): {
-                break
-            }
-            case ('Tooltip'): {
-                await this.expand('Modal & Overlays')
-                await this.page.getByText('Tooltip').click()
-                break
-            }
-            case ('Smart Table'): {
-                await this.expand('Tables & Data')
-                await this.page.getByText('Smart Table').click()
-                break
-            }
-            case ('Datepicker'): {
-                await this.expand('Forms')
-                await this.page.getByText('Datepicker').click()
-                break
-            }
-            case ('IoT Dashboard'): {
-                await this.page.getByText('IoT Dashboard').click()
-                break
-            }
-        }
+    async openFormLayouts() {
+        await this.expand('Forms')
+        await this.formLayouts.click()
+    }
+    async openToastr() {
+        await this.expand('Modal & Overlays')
+        await this.toastr.click()
+    }
+    async openTooltip() {
+        await this.expand('Modal & Overlays')
+        await this.tooltip.click()
+    }
+    async openSmartTable() {
+        await this.expand('Tables & Data')
+        await this.smartTable.click()
+    }
+    async openDatepicker() {
+        await this.expand('Forms')
+        await this.datePicker.click()
+    }
+    async openIoTDashboard() {
+        await this.iotDashboard.click()
+
     }
     private async expand(title: string) {
         const target = this.page.getByTitle(title)

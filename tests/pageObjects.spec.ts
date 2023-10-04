@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
 test.describe('navigate to content', () => {
     test('first test', async ({ page }) => {
         const sidebar = new Sidebar(page)
-        await sidebar.open('Form Layouts')
-        await sidebar.open('Toastr')
+        await sidebar.openFormLayouts()
+        await sidebar.openToastr()
     })
 })
