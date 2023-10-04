@@ -18,30 +18,30 @@ export class Sidebar {
         this.iotDashboard = this.page.getByText('IoT Dashboard')
     }
     async openFormLayouts() {
-        await this.expand('Forms')
+        await this.expandTitle('Forms')
         await this.formLayouts.click()
     }
     async openToastr() {
-        await this.expand('Modal & Overlays')
+        await this.expandTitle('Modal & Overlays')
         await this.toastr.click()
     }
     async openTooltip() {
-        await this.expand('Modal & Overlays')
+        await this.expandTitle('Modal & Overlays')
         await this.tooltip.click()
     }
     async openSmartTable() {
-        await this.expand('Tables & Data')
+        await this.expandTitle('Tables & Data')
         await this.smartTable.click()
     }
     async openDatepicker() {
-        await this.expand('Forms')
+        await this.expandTitle('Forms')
         await this.datePicker.click()
     }
     async openIoTDashboard() {
         await this.iotDashboard.click()
 
     }
-    private async expand(title: string) {
+    private async expandTitle(title: string) {
         const target = this.page.getByTitle(title)
         const state = await target.getAttribute('aria-expanded')
         state == 'true' ? {} : await target.click()
