@@ -1,4 +1,5 @@
-import { expect, test } from '@playwright/test'
+import { expect } from '@playwright/test'
+import { test } from '../test-options'
 test.beforeEach(async ({ page }) => {
     await page.goto('')
 })
@@ -61,7 +62,8 @@ test.describe('locators', () => {
         card = card.filter({ hasText: 'Basic form' })
         const password = card.getByPlaceholder('Password')
 
-        await card.getByPlaceholder('Email').fill('test@test.com')
+        // await card.getByPlaceholder('Email').fill('test@test.com')
+        await card.getByPlaceholder('Email').fill(process.env.USEREMAIL)
         await password.fill('xxx')
         await expect(password).toHaveValue('xxx')
         await card.getByRole('checkbox').check({ force: true })

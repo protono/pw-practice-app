@@ -8,7 +8,11 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve"
+    "start": "ng serve",
+    "chrome": "npx playwright test pageObjects.spec.ts --project=chromium",
+    "firefox": "npx playwright test pageObjects.spec.ts --project=firefox",
+    "both": "npm run chrome & firefox",
+    "envvar": "SOMEURL=http://google.com npm run chrome"
   },
   "dependencies": {
     "@angular/animations": "^14.2.12",
@@ -58,12 +62,14 @@
     "@angular/compiler-cli": "^14.2.12",
     "@angular/language-service": "14.2.12",
     "@compodoc/compodoc": "^1.1.19",
+    "@faker-js/faker": "^8.1.0",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@playwright/test": "^1.38.1",
     "@types/leaflet": "1.2.3",
     "@types/node": "^12.12.70",
     "codelyzer": "^0.0.28",
     "conventional-changelog-cli": "^2.2.2",
+    "dotenv": "^16.3.1",
     "npm-run-all": "4.0.2",
     "rimraf": "2.6.1",
     "stylelint": "^15.6.0",

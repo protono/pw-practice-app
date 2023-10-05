@@ -32,6 +32,7 @@ npm-debug.log
 testem.log
 /typings
 /docs
+.env
 
 # e2e
 /e2e/*.js
@@ -41,5 +42,6 @@ testem.log
 .DS_Store
 Thumbs.db
 /test-results/
+/screenshots
 /playwright-report/
 /playwright/.cache/

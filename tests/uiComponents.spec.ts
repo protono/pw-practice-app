@@ -1,6 +1,7 @@
-import { expect, test } from '@playwright/test'
+import { expect } from '@playwright/test'
+import { test } from '../test-options'
 test.beforeEach(async ({ page }) => {
-    page.goto('')
+    await page.goto('')
 })
 
 test.describe('UI components', () => {
