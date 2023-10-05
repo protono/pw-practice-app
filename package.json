@@ -9,8 +9,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "chrome": "npx playwright test pageObjects.spec.ts --project=chromium",
-    "firefox": "npx playwright test pageObjects.spec.ts --project=firefox",
+    "chrome": "npx playwright test pageObjects.spec.ts --project=cr",
+    "firefox": "npx playwright test pageObjects.spec.ts --project=ff",
     "both": "npm run chrome & firefox",
     "envvar": "SOMEURL=http://google.com npm run chrome"
   },
