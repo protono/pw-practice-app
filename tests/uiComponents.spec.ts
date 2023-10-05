@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('UI components', () => {
-    test.describe('form layouts', () => {
+    test.describe('form layouts @block', () => {
         test.beforeEach(async ({ page }) => {
             await page.getByText('Forms').click()
             await page.getByText('Form layouts').click()

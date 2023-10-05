@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
     await page.goto('')
 })
 test.describe('content', () => {
-    test('navigation ', async ({ page }) => {
+    test('navigation @smoke', async ({ page }) => {
         console.log(process.env.SOMEURL)
         const pm = new PageManager(page)
         await pm.goto().formLayoutsPage()
@@ -21,7 +21,7 @@ test.describe('content', () => {
         await pm.formLayouts.usingTheGrid_signIn(email(), password(), 'Option 1')
         await pm.formLayouts.inlineForm_submit(fullname(), email(), true)
     })
-    test('datepicker', async ({ page }) => {
+    test('datepicker @smoke', async ({ page }) => {
         const pm = new PageManager(page)
         await pm.goto().datepickerPage()
         await pm.datepicker.common_daysFromNow(3)
