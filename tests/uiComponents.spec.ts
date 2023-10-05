@@ -137,11 +137,9 @@ test.describe('UI components', () => {
         })
     })
     test.describe('datepicker', () => {
-        test.beforeEach(async ({ page }) => {
+        test('common dp', async ({ page }) => {
             await page.getByText('Forms').click()
             await page.getByText('Datepicker').click()
-        })
-        test('common dp', async ({ page }) => {
             const card = page.locator('nb-card').filter({ hasText: 'Common Datepicker' })
             const button = card.getByPlaceholder('Form Picker')
             await button.click()
